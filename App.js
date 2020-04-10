@@ -1,6 +1,5 @@
 import React from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
-// import Board from "./src/components/MainPage/Board"
 import Board from "./src/components/Board"
 
 const App = () => {
