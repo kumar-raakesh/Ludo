@@ -65,6 +65,8 @@ const playerCPath = ['8,13', '8,12', '8,11', '8,10', '8,9', '9,8', '11,8', '12,8
 const playerDPath = ['13,6', '12,6', '11,6', '10,6', '9,6', '8,5', '8,4', '8,3', '8,2', '8,1', '8,0', '7,0', '6,0',
   '6,1', '6,2', '6,3', '6,4', '6,5', '5,6', '4,6', '3,6', '2,6', '1,6', '0,6', '0,7', '0,8', '1,8', '2,8', '3,8', '4,8', '5,8', '6,9', '6,10', '6,11', '6,12', '6,13', '6,14', '7,14', '8,14',
   '8,13', '8,12', '8,11', '8,10', '8,9', '9,8', '11,8', '12,8', '13,8', '14,8', '14,7', '13,7', '12,7', '11,7', '10,7', '9,7', '8,7'];
+
+const safeArea = ["6,1", "2,6", "1,8", "6,12", "8,13", "12,8", "13,8", "8,2"]
 const playerAcolor = '#FA0';
 const playerBcolor = '#CDC';
 const playerCcolor = '#BAF';
@@ -113,8 +115,9 @@ class Board extends Component {
     }
   }
   moveCoin(player, coinIndex, fromIndex, indexToAdd) {
+    console.log("state", this.state)
 
-    console.log("moveCoin", player, coinIndex, indexToAdd)
+    // console.log("moveCoin", player, coinIndex, indexToAdd)
     if (player === 'a') {
       let prevState = [...this.state.playerA];
       let toIndex = prevState[coinIndex].index + indexToAdd;
@@ -126,49 +129,74 @@ class Board extends Component {
 
         // FOR RED COIN
         for (var i = 0; i < 4; i++) {
-          if (aPath == red[i].pos) {
-            red[i].pos = i == 0 ? "2,11" : i == 1 ? "3,10" : i == 2 ? "3,12" : i == 3 ? "4,11" : ''
-            red[i].index = -1;
-            this.setState({ playerB: red })
+          if (red[i].pos == "6,1" || red[i].pos == "2,6" || red[i].pos == "1,8" || red[i].pos == "6,12" || red[i].pos == "8,13" || red[i].pos == "12,8" || red[i].pos == "13,8" || red[i].pos == "8,2") {
             prevState[coinIndex].index = toIndex;
             prevState[coinIndex].pos = playerAPath[toIndex];
             this.setState({ playerA: prevState });
+
           } else {
-            prevState[coinIndex].index = toIndex;
-            prevState[coinIndex].pos = playerAPath[toIndex];
-            this.setState({ playerA: prevState });
+            if (aPath == red[i].pos) {
+              red[i].pos = i == 0 ? "2,11" : i == 1 ? "3,10" : i == 2 ? "3,12" : i == 3 ? "4,11" : ''
+              red[i].index = -1;
+              this.setState({ playerB: red })
+              prevState[coinIndex].index = toIndex;
+              prevState[coinIndex].pos = playerAPath[toIndex];
+              this.setState({ playerA: prevState });
+            } else {
+              prevState[coinIndex].index = toIndex;
+              prevState[coinIndex].pos = playerAPath[toIndex];
+              this.setState({ playerA: prevState });
+            }
           }
         }
+
+
         // FOR PINK COIN
         for (var i = 0; i < 4; i++) {
-          if (aPath == pink[i].pos) {
-            pink[i].pos = i == 0 ? "10,11" : i == 1 ? "11,10" : i == 2 ? "11,12" : i == 3 ? "12,11" : ''
-            pink[i].index = -1;
-            this.setState({ playerC: pink })
+          if (pink[i].pos == "6,1" || pink[i].pos == "2,6" || pink[i].pos == "1,8" || pink[i].pos == "6,12" || pink[i].pos == "8,13" || pink[i].pos == "12,8" || pink[i].pos == "13,8" || pink[i].pos == "8,2") {
             prevState[coinIndex].index = toIndex;
             prevState[coinIndex].pos = playerAPath[toIndex];
             this.setState({ playerA: prevState });
+
           } else {
-            prevState[coinIndex].index = toIndex;
-            prevState[coinIndex].pos = playerAPath[toIndex];
-            this.setState({ playerA: prevState });
+            if (aPath == pink[i].pos) {
+              pink[i].pos = i == 0 ? "10,11" : i == 1 ? "11,10" : i == 2 ? "11,12" : i == 3 ? "12,11" : ''
+              pink[i].index = -1;
+              this.setState({ playerC: pink })
+              prevState[coinIndex].index = toIndex;
+              prevState[coinIndex].pos = playerAPath[toIndex];
+              this.setState({ playerA: prevState });
+            } else {
+              prevState[coinIndex].index = toIndex;
+              prevState[coinIndex].pos = playerAPath[toIndex];
+              this.setState({ playerA: prevState });
+            }
           }
         }
+
         // FOR BLUE Button
         for (var i = 0; i < 4; i++) {
-          if (aPath == blue[i].pos) {
-            blue[i].pos = i == 0 ? "10,3" : i == 1 ? "11,2" : i == 2 ? "11,4" : i == 3 ? "12,3" : ''
-            blue[i].index = -1;
-            this.setState({ playerD: blue })
+          if (blue[i].pos == "6,1" || blue[i].pos == "2,6" || blue[i].pos == "1,8" || blue[i].pos == "6,12" || blue[i].pos == "8,13" || blue[i].pos == "12,8" || blue[i].pos == "13,8" || blue[i].pos == "8,2") {
             prevState[coinIndex].index = toIndex;
             prevState[coinIndex].pos = playerAPath[toIndex];
             this.setState({ playerA: prevState });
           } else {
-            prevState[coinIndex].index = toIndex;
-            prevState[coinIndex].pos = playerAPath[toIndex];
-            this.setState({ playerA: prevState });
+            if (aPath == blue[i].pos) {
+              blue[i].pos = i == 0 ? "10,3" : i == 1 ? "11,2" : i == 2 ? "11,4" : i == 3 ? "12,3" : ''
+              blue[i].index = -1;
+              this.setState({ playerD: blue })
+              prevState[coinIndex].index = toIndex;
+              prevState[coinIndex].pos = playerAPath[toIndex];
+              this.setState({ playerA: prevState });
+            } else {
+              prevState[coinIndex].index = toIndex;
+              prevState[coinIndex].pos = playerAPath[toIndex];
+              this.setState({ playerA: prevState });
+            }
           }
+
         }
+
       }
     } else if (player === 'b') {
       let prevState = [...this.state.playerB];
@@ -181,49 +209,72 @@ class Board extends Component {
 
       // FOR PINK COIN
       for (var i = 0; i < 4; i++) {
-        if (bPath == pink[i].pos) {
-          pink[i].pos = i == 0 ? "10,11" : i == 1 ? "11,10" : i == 2 ? "11,12" : i == 3 ? "12,11" : ''
-          pink[i].index = -1;
-          this.setState({ playerC: pink })
+        if (pink[i].pos == "6,1" || pink[i].pos == "2,6" || pink[i].pos == "1,8" || pink[i].pos == "6,12" || pink[i].pos == "8,13" || pink[i].pos == "12,8" || pink[i].pos == "13,8" || pink[i].pos == "8,2") {
           prevState[coinIndex].index = toIndex;
           prevState[coinIndex].pos = playerBPath[toIndex];
           this.setState({ playerB: prevState });
+
         } else {
-          prevState[coinIndex].index = toIndex;
-          prevState[coinIndex].pos = playerBPath[toIndex];
-          this.setState({ playerB: prevState });
+          if (bPath == pink[i].pos) {
+            pink[i].pos = i == 0 ? "10,11" : i == 1 ? "11,10" : i == 2 ? "11,12" : i == 3 ? "12,11" : ''
+            pink[i].index = -1;
+            this.setState({ playerC: pink })
+            prevState[coinIndex].index = toIndex;
+            prevState[coinIndex].pos = playerBPath[toIndex];
+            this.setState({ playerB: prevState });
+          } else {
+            prevState[coinIndex].index = toIndex;
+            prevState[coinIndex].pos = playerBPath[toIndex];
+            this.setState({ playerB: prevState });
+          }
         }
       }
+
+
 
 
       // FOR BLUE Button
       for (var i = 0; i < 4; i++) {
-        if (bPath == blue[i].pos) {
-          blue[i].pos = i == 0 ? "10,3" : i == 1 ? "11,2" : i == 2 ? "11,4" : i == 3 ? "12,3" : ''
-          blue[i].index = -1;
-          this.setState({ playerD: blue })
+        if (blue[i].pos == "6,1" || blue[i].pos == "2,6" || blue[i].pos == "1,8" || blue[i].pos == "6,12" || blue[i].pos == "8,13" || blue[i].pos == "12,8" || blue[i].pos == "13,8" || blue[i].pos == "8,2") {
           prevState[coinIndex].index = toIndex;
           prevState[coinIndex].pos = playerBPath[toIndex];
           this.setState({ playerB: prevState });
         } else {
-          prevState[coinIndex].index = toIndex;
-          prevState[coinIndex].pos = playerBPath[toIndex];
-          this.setState({ playerB: prevState });
+          if (bPath == blue[i].pos) {
+            blue[i].pos = i == 0 ? "10,3" : i == 1 ? "11,2" : i == 2 ? "11,4" : i == 3 ? "12,3" : ''
+            blue[i].index = -1;
+            this.setState({ playerD: blue })
+            prevState[coinIndex].index = toIndex;
+            prevState[coinIndex].pos = playerBPath[toIndex];
+            this.setState({ playerB: prevState });
+          } else {
+            prevState[coinIndex].index = toIndex;
+            prevState[coinIndex].pos = playerBPath[toIndex];
+            this.setState({ playerB: prevState });
+          }
         }
       }
+
+
       // FOR YELLOW
       for (var i = 0; i < 4; i++) {
-        if (bPath == yellow[i].pos) {
-          yellow[i].pos = i == 0 ? "2,3" : i == 1 ? "3,2" : i == 2 ? "3,4" : i == 3 ? "4,3" : ''
-          yellow[i].index = -1;
-          this.setState({ playerA: yellow })
+        if (yellow[i].pos == "6,1" || yellow[i].pos == "2,6" || yellow[i].pos == "1,8" || yellow[i].pos == "6,12" || yellow[i].pos == "8,13" || yellow[i].pos == "12,8" || yellow[i].pos == "13,8" || yellow[i].pos == "8,2") {
           prevState[coinIndex].index = toIndex;
           prevState[coinIndex].pos = playerBPath[toIndex];
           this.setState({ playerB: prevState });
         } else {
-          prevState[coinIndex].index = toIndex;
-          prevState[coinIndex].pos = playerBPath[toIndex];
-          this.setState({ playerB: prevState });
+          if (bPath == yellow[i].pos) {
+            yellow[i].pos = i == 0 ? "2,3" : i == 1 ? "3,2" : i == 2 ? "3,4" : i == 3 ? "4,3" : ''
+            yellow[i].index = -1;
+            this.setState({ playerA: yellow })
+            prevState[coinIndex].index = toIndex;
+            prevState[coinIndex].pos = playerBPath[toIndex];
+            this.setState({ playerB: prevState });
+          } else {
+            prevState[coinIndex].index = toIndex;
+            prevState[coinIndex].pos = playerBPath[toIndex];
+            this.setState({ playerB: prevState });
+          }
         }
       }
 
@@ -239,47 +290,67 @@ class Board extends Component {
 
       // FOR BLUE Button
       for (var i = 0; i < 4; i++) {
-        if (cPath == blue[i].pos) {
-          blue[i].pos = i == 0 ? "10,3" : i == 1 ? "11,2" : i == 2 ? "11,4" : i == 3 ? "12,3" : ''
-          blue[i].index = -1;
-          this.setState({ playerD: blue })
+        if (blue[i].pos == "6,1" || blue[i].pos == "2,6" || blue[i].pos == "1,8" || blue[i].pos == "6,12" || blue[i].pos == "8,13" || blue[i].pos == "12,8" || blue[i].pos == "13,8" || blue[i].pos == "8,2") {
           prevState[coinIndex].index = toIndex;
           prevState[coinIndex].pos = playerCPath[toIndex];
           this.setState({ playerC: prevState });
+
         } else {
-          prevState[coinIndex].index = toIndex;
-          prevState[coinIndex].pos = playerCPath[toIndex];
-          this.setState({ playerC: prevState });
+          if (cPath == blue[i].pos) {
+            blue[i].pos = i == 0 ? "10,3" : i == 1 ? "11,2" : i == 2 ? "11,4" : i == 3 ? "12,3" : ''
+            blue[i].index = -1;
+            this.setState({ playerD: blue })
+            prevState[coinIndex].index = toIndex;
+            prevState[coinIndex].pos = playerCPath[toIndex];
+            this.setState({ playerC: prevState });
+          } else {
+            prevState[coinIndex].index = toIndex;
+            prevState[coinIndex].pos = playerCPath[toIndex];
+            this.setState({ playerC: prevState });
+          }
         }
       }
       // FOR YELLOW
       for (var i = 0; i < 4; i++) {
-        if (cPath == yellow[i].pos) {
-          yellow[i].pos = i == 0 ? "2,3" : i == 1 ? "3,2" : i == 2 ? "3,4" : i == 3 ? "4,3" : ''
-          yellow[i].index = -1;
-          this.setState({ playerA: yellow })
+        if (yellow[i].pos == "6,1" || yellow[i].pos == "2,6" || yellow[i].pos == "1,8" || yellow[i].pos == "6,12" || yellow[i].pos == "8,13" || yellow[i].pos == "12,8" || yellow[i].pos == "13,8" || yellow[i].pos == "8,2") {
           prevState[coinIndex].index = toIndex;
           prevState[coinIndex].pos = playerCPath[toIndex];
           this.setState({ playerC: prevState });
+
         } else {
-          prevState[coinIndex].index = toIndex;
-          prevState[coinIndex].pos = playerCPath[toIndex];
-          this.setState({ playerC: prevState });
+          if (cPath == yellow[i].pos) {
+            yellow[i].pos = i == 0 ? "2,3" : i == 1 ? "3,2" : i == 2 ? "3,4" : i == 3 ? "4,3" : ''
+            yellow[i].index = -1;
+            this.setState({ playerA: yellow })
+            prevState[coinIndex].index = toIndex;
+            prevState[coinIndex].pos = playerCPath[toIndex];
+            this.setState({ playerC: prevState });
+          } else {
+            prevState[coinIndex].index = toIndex;
+            prevState[coinIndex].pos = playerCPath[toIndex];
+            this.setState({ playerC: prevState });
+          }
         }
       }
       // FOR RED COIN
       for (var i = 0; i < 4; i++) {
-        if (cPath == red[i].pos) {
-          red[i].pos = i == 0 ? "2,11" : i == 1 ? "3,10" : i == 2 ? "3,12" : i == 3 ? "4,11" : ''
-          red[i].index = -1;
-          this.setState({ playerB: red })
+        if (red[i].pos == "6,1" || red[i].pos == "2,6" || red[i].pos == "1,8" || red[i].pos == "6,12" || red[i].pos == "8,13" || red[i].pos == "12,8" || red[i].pos == "13,8" || red[i].pos == "8,2") {
           prevState[coinIndex].index = toIndex;
           prevState[coinIndex].pos = playerCPath[toIndex];
           this.setState({ playerC: prevState });
         } else {
-          prevState[coinIndex].index = toIndex;
-          prevState[coinIndex].pos = playerCPath[toIndex];
-          this.setState({ playerC: prevState });
+          if (cPath == red[i].pos) {
+            red[i].pos = i == 0 ? "2,11" : i == 1 ? "3,10" : i == 2 ? "3,12" : i == 3 ? "4,11" : ''
+            red[i].index = -1;
+            this.setState({ playerB: red })
+            prevState[coinIndex].index = toIndex;
+            prevState[coinIndex].pos = playerCPath[toIndex];
+            this.setState({ playerC: prevState });
+          } else {
+            prevState[coinIndex].index = toIndex;
+            prevState[coinIndex].pos = playerCPath[toIndex];
+            this.setState({ playerC: prevState });
+          }
         }
       }
 
@@ -295,49 +366,70 @@ class Board extends Component {
 
       // FOR YELLOW
       for (var i = 0; i < 4; i++) {
-        if (dPath == yellow[i].pos) {
-          yellow[i].pos = i == 0 ? "2,3" : i == 1 ? "3,2" : i == 2 ? "3,4" : i == 3 ? "4,3" : ''
-          yellow[i].index = -1;
-          this.setState({ playerA: yellow })
+        if (yellow[i].pos == "6,1" || yellow[i].pos == "2,6" || yellow[i].pos == "1,8" || yellow[i].pos == "6,12" || yellow[i].pos == "8,13" || yellow[i].pos == "12,8" || yellow[i].pos == "13,8" || yellow[i].pos == "8,2") {
           prevState[coinIndex].index = toIndex;
           prevState[coinIndex].pos = playerDPath[toIndex];
           this.setState({ playerD: prevState });
         } else {
-          prevState[coinIndex].index = toIndex;
-          prevState[coinIndex].pos = playerDPath[toIndex];
-          this.setState({ playerD: prevState });
+          if (dPath == yellow[i].pos) {
+            yellow[i].pos = i == 0 ? "2,3" : i == 1 ? "3,2" : i == 2 ? "3,4" : i == 3 ? "4,3" : ''
+            yellow[i].index = -1;
+            this.setState({ playerA: yellow })
+            prevState[coinIndex].index = toIndex;
+            prevState[coinIndex].pos = playerDPath[toIndex];
+            this.setState({ playerD: prevState });
+          } else {
+            prevState[coinIndex].index = toIndex;
+            prevState[coinIndex].pos = playerDPath[toIndex];
+            this.setState({ playerD: prevState });
+          }
         }
       }
 
       // FOR RED COIN
       for (var i = 0; i < 4; i++) {
-        if (dPath == red[i].pos) {
-          red[i].pos = i == 0 ? "2,11" : i == 1 ? "3,10" : i == 2 ? "3,12" : i == 3 ? "4,11" : ''
-          red[i].index = -1;
-          this.setState({ playerB: red })
+        if (red[i].pos == "6,1" || red[i].pos == "2,6" || red[i].pos == "1,8" || red[i].pos == "6,12" || red[i].pos == "8,13" || red[i].pos == "12,8" || red[i].pos == "13,8" || red[i].pos == "8,2") {
           prevState[coinIndex].index = toIndex;
           prevState[coinIndex].pos = playerDPath[toIndex];
           this.setState({ playerD: prevState });
         } else {
-          prevState[coinIndex].index = toIndex;
-          prevState[coinIndex].pos = playerDPath[toIndex];
-          this.setState({ playerD: prevState });
+
+          if (dPath == red[i].pos) {
+            red[i].pos = i == 0 ? "2,11" : i == 1 ? "3,10" : i == 2 ? "3,12" : i == 3 ? "4,11" : ''
+            red[i].index = -1;
+            this.setState({ playerB: red })
+            prevState[coinIndex].index = toIndex;
+            prevState[coinIndex].pos = playerDPath[toIndex];
+            this.setState({ playerD: prevState });
+          } else {
+            prevState[coinIndex].index = toIndex;
+            prevState[coinIndex].pos = playerDPath[toIndex];
+            this.setState({ playerD: prevState });
+          }
+
         }
+
       }
 
       // FOR PINK COIN
       for (var i = 0; i < 4; i++) {
-        if (dPath == pink[i].pos) {
-          pink[i].pos = i == 0 ? "10,11" : i == 1 ? "11,10" : i == 2 ? "11,12" : i == 3 ? "12,11" : ''
-          pink[i].index = -1;
-          this.setState({ playerC: pink })
+        if (pink[i].pos == "6,1" || pink[i].pos == "2,6" || pink[i].pos == "1,8" || pink[i].pos == "6,12" || pink[i].pos == "8,13" || pink[i].pos == "12,8" || pink[i].pos == "13,8" || pink[i].pos == "8,2") {
           prevState[coinIndex].index = toIndex;
           prevState[coinIndex].pos = playerDPath[toIndex];
           this.setState({ playerD: prevState });
         } else {
-          prevState[coinIndex].index = toIndex;
-          prevState[coinIndex].pos = playerDPath[toIndex];
-          this.setState({ playerD: prevState });
+          if (dPath == pink[i].pos) {
+            pink[i].pos = i == 0 ? "10,11" : i == 1 ? "11,10" : i == 2 ? "11,12" : i == 3 ? "12,11" : ''
+            pink[i].index = -1;
+            this.setState({ playerC: pink })
+            prevState[coinIndex].index = toIndex;
+            prevState[coinIndex].pos = playerDPath[toIndex];
+            this.setState({ playerD: prevState });
+          } else {
+            prevState[coinIndex].index = toIndex;
+            prevState[coinIndex].pos = playerDPath[toIndex];
+            this.setState({ playerD: prevState });
+          }
         }
       }
     }
